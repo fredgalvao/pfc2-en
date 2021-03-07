@@ -1,0 +1,162 @@
+\chapter{Projeto proposto: Enriquecimento de contexto de entidades no tempo} \label{c:enriquecimento_proposto}
+
+Tendo agora explorado de maneira relativamente detalhada as diferentes etapas do sistema completo proposto por este trabalho, podemos isolar algumas partes e focar em alguns detalhes de implementação da etapa de enriquecimento de contexto que imaginamos ser cruciais para o alcance de resultados excelentes na modelagem de contexto semântico propriamente dita.
+
+\section{Metodologia}
+
+Serão descritas duas abordagens, ambas sujeitas a todas as etapas do sistema completo exceto a de enriquecimento de contexto: \textbf{coleta} de múltiplas fontes de dados; \textbf{processamento} de múltiplas camadas de dados; e \textbf{aplicação} do conhecimento extraído em recomendação de conteúdo e agentes virtuais. 
+
+\begin{itemize}
+    \item Consideraremos como \textbf{abordagem clássica}, aquela que faz uso de apenas um tipo de canal de dados por vez durante a aplicação, pois não contempla uma camada de enriquecimento multidimensional de contexto.
+    \item  Por outro lado, descrevemos como \textbf{abordagem multidimensional} aquela que faz uso de todas as técnicas descritas no capítulo \ref{c:enriquecimento_de_contexto} para fornecer uma definição de contexto rica à camada de aplicação.
+\end{itemize}
+
+Espera-se ser possível identificar com facilidade a fragilidade da \textbf{abordagem clássica} e os benefícios da \textbf{abordagem multidimensional} a partir dos modelos expostos neste capítulo.
+
+\newpage
+
+\section{Fluxo de processamento}
+
+O fluxo de processamento, em cada um dos cenários, é representado a seguir:
+
+\begin{figure}[h]
+\caption{abordagem clássica}
+\centering
+\includegraphics[width=1.0\textwidth,height=1.0\textheight,keepaspectratio]{images/PoorFlow-2.png}
+\end{figure}
+
+\begin{figure}[h]
+\caption{abordagem multidimensional}
+\centering
+\includegraphics[width=1.0\textwidth,height=1.0\textheight,keepaspectratio]{images/FullFlow-2.png}
+\end{figure}
+
+\section{Estrutura das representações de contexto}
+
+Apesar dos detalhes das etapas do fluxo terem sido descritas anteriormente, a camada de aplicação pode ser considerada agnóstica quanto à implementação dos bancos de dados de entidades, metadados e relacionamentos. Com isso, podemos considerar que a estrutura da representação de contexto de cada um dos cenários confia nas camadas anteriores de maneira transparente.
+
+\newpage
+
+\begin{minted}[
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=0.8,
+    fontsize=\footnotesize,
+    linenos
+]{groovy}
+/**
+* Defines a single relationship between a document/event and an entity.
+* Contains as much metadata as available in the original event
+*/
+class SD_EntityEventRelationship {
+    //mandatory, identifies the data content that generated this relationship
+    Event originalEvent
+    //mandatory, points to a definition of an entity on an Ontology/Thesaurus
+    Entity entity
+
+    //timestamp is so common that we can consider the SD model to have it,
+    //but it isn't properly used in the query process
+    //optional, with as much precision as possible
+    Timestamp timestamp
+}
+
+/**
+* Defines the query used in a context
+* to search for all possible entityEventRelationships,
+* in the single-dimension scenario,
+* and without considering an oerall multilayered context.
+* Note that this match only cares for the {entity} relation:
+* it's unaware of time or place, or any other metadata
+*/
+class SD_ContextQuery {
+    Entity entity
+}
+
+/**
+* Defines the answer to a SD_ContextQuery
+*/
+class SD_ContextualMatch {
+    //this contains all occurencies of the matched entity
+    List<EntityEventRelationship> matchHistory
+
+    /**
+    * calculated from the distance between the query entity
+    * and the matched EntityEventRelationship
+    */
+    BigDecimal relevance
+}
+\end{minted}
+
+O trecho de código comentado acima descreve a estrutura de classes da \textbf{abordagem clássica}. Definimos propositalmente o modelo de relacionamento entre entidade e evento (\textit{EntityEventRelationship}) como sendo composto pelo \textbf{evento original} (\textit{originalEvent}), pela \textbf{entidade em si} (\textit{entity}), e no máximo por um metadado de \textbf{\textit{timestamp}}. O contexto de um \textit{match} (\textit{ContextualMatch}) é definido então, a partir de uma consulta inicial (\textit{ContextQuery}, que define a entidade que disparou a busca ou solicitação de contexto), como um conjunto de relacionamentos de entidades e eventos, com uma relevância utilizada para ordenar um conjunto maior de \textit{matches} para responder à interface e ao usuário.
+
+\newpage
+
+
+\begin{minted}[
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=0.8,
+    fontsize=\footnotesize,
+    linenos
+]{groovy}
+//Augments the original EntityEventRelationship with all the other metadata layers
+class MD_EntityEventRelationship extends SD_EntityEventRelationship {
+    
+    //now mandatory, most of the time with a millisecond precision
+    Timestamp timestamp
+    //now mandatory, with as much precision as possible
+    Coordinates coordinates
+    //optional, freeform metadata that doesn't fit time or place concepts
+    HashMap extraMetadata
+
+    /**
+    * Instead of having simple and single entityEventRelationships, we can provide
+    * a way to inspect all neighbours of the one that triggered the match
+    */
+    public List<MD_EntityEventRelationship> nearbyEntityEventRelationships() {
+        /*...*/
+    }
+}
+
+/**
+* Represents EntityEventRelationships clusterized in at least one attribute.
+* Can be represented as a cloud of events with similar temporal/georeferencial/semantic values
+*/
+class MD_CompositeContextSurface {
+    HashMap<MD_EntityEventRelationship, Point> surface
+}
+
+//The same as SD_ContextQuery, but taking into account all available metadata
+class MD_ContextQuery {
+    Entity entity
+
+    Timestamp timestamp
+    Coordinates coordinates
+    HashMap extraMetadata
+}
+
+class MD_ContextualMatch {
+    //this contains all occurencies of the matched query on all layers and dimensions
+    List<MD_CompositeContextSurface> matchHistory
+
+    //calculated from the collective distance between all query attributes to the context
+    BigDecimal relevance
+}
+\end{minted}
+
+Aqui propomos o modelo da \textbf{abordagem multidimensional}, em superposição ao modelo da \textbf{abordagem clássica}, agora considerando todas as camadas de metadados disponibilizadas pelas camadas de \textbf{coleta}, \textbf{processamento} e \textbf{enriquecimento} de dados.
+
+\section{Relacionamentos inferíveis}
+
+Serão apresentados nesta seção exemplos de relacionamentos e contextos de busca que são alcançáveis com a \textbf{abordagem clássica} e os que são somente alcançáveis com a \textbf{abordagem multidimensional}, a fim de demonstrar os benefícios da riqueza de metadados e do enriquecimento destes no processo de inferência de relacionamentos semânticos.
+
+\newpage
+
+\begin{figure}[h]
+\caption{identificação de relacionamentos na linha do tempo}
+\label{i:DataChannels}
+\centering
+\includegraphics[width=1.0\textwidth,height=1.0\textheight,keepaspectratio]{images/DataChannels-2.png}
+\end{figure}
+
+Apesar da imagem \ref{i:DataChannels} se aplicar tanto à \textbf{abordagem clássica} quanto à \textbf{abordagem multidimensional} (já que ambas consideram a dimensão temporal nos relacionamentos), apenas esta última é capaz de inferir relacionamentos com o eixo variando para qualquer uma das dimensões ou atributos disponíveis no evento enriquecido original: \textit{timestamp}, coordenadas GPS, proximidade ou exatidão de entidades, ou qualquer outro metadado disponível nas camadas anteriores à de aplicação dos dados. Outros trabalhos, como o de \citeonline{hu2014multidimensional}, reforçam que o aspecto multidimensional da representação e definição de contexto semântico constituem fator crucial na eficácia e flexibilidade do sistema proposto.

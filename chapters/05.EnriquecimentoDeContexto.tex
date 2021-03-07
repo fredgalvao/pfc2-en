@@ -1,0 +1,62 @@
+\chapter{Enriquecimento de contexto} \label{c:enriquecimento_de_contexto}
+
+Esta etapa do processo é o principal alvo deste trabalho. O objetivo é descrever um modelo de enriquecimento de contexto de múltiplos canais de dados pré-processados que consiga fornecer a aplicações de assistência virtual pessoal ou serviços de integração de cidades inteligentes uma camada de conhecimento e inteligência melhor que os resultados obtidos pela utilização desses canais de dados individualmente.
+
+O ponto chave consiste na integração entre as diferentes fontes de dados, a fim de estabelecer relacionamentos entre todos eles, tanto em quantidade quanto em qualidade.
+
+Em alguns casos, espera-se ser possível estabelecer relacionamentos entre dois ou mais canais de dados em mais de um aspecto como, por exemplo, relacionar consumo de conteúdo digital (entidades nomeadas, coordenadas, \textit{timestamps}) com consumo de bebida (itens consumidos, eventos de cartão de crédito, coordenadas, \textit{timestamps}) e integração de transporte público (coordenadas, \textit{timestamps}) a fim de estabelecer relacionamentos cruzados múltiplos tais como:
+\begin{quote}
+    O usuário lê um artigo não-técnico de 3-5 minutos de duração no Medium quando está tomando café expresso a dois quarteirões do trabalho sempre que o ônibus para casa tem previsão de mais que 10 minutos de chegada, mas apenas se este usuário tiver o costume de pagar com cartão de crédito, pois o pagamento em dinheiro lhe custa tempo de manuseio e conferência de troco suficiente para comprometer a leitura ou a chegada ao ponto de ônibus.
+\end{quote}
+
+Diversas possibilidades surgem do estabelecimento de relacionamentos como esses. Sugestão de otimização da rotina do usuário (talvez ele possa adotar um meio de pagamento automatizado usando NFC pelo smartphone que lhe permita leituras mais elaboradas enquanto espera o ônibus e toma um café) ou sugestão de conteúdo apropriado de antemão (seleção de artigos com similaridade de tempo de leitura ou de tema e criação de um catálogo sempre atualizado de fácil acesso sempre que o usuário estiver no mesmo café).
+
+O conceito de enriquecimento de contexto é dependente da definição de \textbf{contexto} usando uma abordagem multidimensional, com algumas etapas internas definidas por modelos recentes de alteração de contexto em relação a entidades e relacionamentos \cite{contextenrichment:multi}. Aqui, o processo completo é definido como um conjunto de operações que, quando executadas, estabelecem os metadados necessários para evolução da informação e dos relacionamentos nela presentes. Essas operações são \textbf{movimentação}, \textbf{contração} e \textbf{expansão} de contexto.
+
+Em outros termos, o enriquecimento de contexto tem o papel de inferir ou reconhecer informações e relacionamentos que não estão explícitas no dado original, e portanto não são extraíveis na etapa de processamento de dados. O fato de tantos canais de dados serem inerentemente incompletos se dá por vários motivos, dentre eles o de que na web e no mundo de coleta de uma cidade inteligente os conteúdos e relacionamentos estão naturalmente dispersos sem um domínio de conhecimento definido, e há uma grande diversidade de usuários com interesses, necessidades e circunstâncias diferentes. Um agravante final dessa característica é o fato da maioria desses usuários não estar apta ou disposta a fornecer a informação ou relacionamento implícito \cite{moreira2014sistema}.
+
+Algumas categorias de relacionamentos se destacam nesta etapa, de acordo com a classificação das camadas de extração e processamento de dados disposta na seção \ref{s:interpretacao_e_extracao_de_informacao}, mapeando para diferentes tipos de relacionamentos. Desses, os tipos de relacionamentos considerados são descritos abaixo.
+
+\section{Relação temporal}
+
+O estabelecimento de relação temporal entre diferentes eventos é a área da qual se obtém com mais frequência relevância e resultados imediatos.
+
+Estudos de extração de conhecimento e de inferência de relacionamento de contexto a partir de dados do Twitter, por exemplo, atingem resultados satisfatórios levando em consideração a proximidade temporal de eventos \cite{extracting:fromtwitter}.
+
+Um peso geralmente é atribuído à proximidade temporal dos eventos a fim de ponderar a força do relacionamento. A base dos estudos de neurociência aplicada em processos cognitivos, que demonstra que a proximidade temporal de eventos sobrepostos tem influência sobre a intensidade dos relacionamentos associados a tais eventos, confirma a importância de um escopo temporal bem definido porém flexível \cite{Zeithamova2017TemporalPP}.
+
+Além do efeito nos processos cognitivos causado pela integração temporal de eventos que se sobrepõem, também os processos humanos de inferência são afetados pela proximidade temporal, reforçando que um sistema que tenha como objetivo a integração natural com a rotina e processos cognitivos e de consumo de conteúdo de um usuário precisa espelhar os mecanismos de inferência e de processos cognitivos do mesmo.
+
+A proximidade temporal absoluta não é o único relacionamento no eixo do tempo que pode ser inferido entre múltiplos pontos de dados. Os metadados de um \textit{timestamp} - como \textbf{mês}, \textbf{dia da semana}, ou \textbf{estação do ano} - podem, depois de um período longo o suficiente de coleta de dados, estabelecer relacionamentos e contextos especialmente ricos, tais como o fato de que alguns eventos só acontecem no final do ano (natal, hanukkah, compras de final de ano, viagens de férias, etc). Estes relacionamentos seriam desconsiderados numa análise temporal clássica por proximidade, e portanto a consideração dos metadados e das diversas subdimensões internas da dimensão temporal é de total relevância para o enriquecimento de contexto.
+
+\section{Relação geoespacial}
+
+Especialmente para eventos de contexto de origem predominantemente analógicas, como os relacionáveis a um local representado por uma coordenada geográfica, a relação geoespacial é de suma importância, já que alguns eventos estão parcial ou totalmente atrelados e limitados a essa dimensão. Um exemplo seria o fato de que é impossível ir ao cinema sem a relação com a localização geográfica de uma unidade de cinema. Apesar de não ser tão relevante no processo cognitivo e de formação de memória quanto a relação temporal, a inferência de relações geoespaciais são incrivelmente importantes quando o sistema está inserido no contexto de cidades inteligentes \cite{doi:10.1080/10095020.2013.772802}.
+
+O estabelecimento simultâneo de relações geoespaciais e temporais possui importância excepcional em aplicações focadas nas dimensões analógicas e sociais da coleta de dados, como engenharia social aplicada a análise de comportamento e controle urbano \cite{Psyllidis2017APF}.
+
+\section{Relação de entidades}
+
+As duas categorias de relações descritas anteriormente, temporal e geoespacial, podem ser consideradas relações de metadados, pois o \textit{timestamp} e a coordenada são características de um evento, não um evento por si só. A terceira categoria, que finalmente se atenta ao conteúdo dos pontos de dados, é a de relações de entidades, ou \textbf{relações semânticas puras}.
+
+A eficácia da identificação de relações semânticas puras depende em grande parte do bom reconhecimento de entidades nomeadas (NER, \textit{named entity recognition}) e da utilização de grandes bases de dados - especialistas ou de domínio generalizado - de ontologias, além de uma \textit{thesaurus}, ambas para consulta de relacionamentos e definições. Fica claro que para a identificação de relacionamentos entre entidades, é preciso \textbf{identificar as entidades} (NER) e, uma vez identificadas, \textbf{definí-las bem} (ontologia e \textit{thesaurus}), para então navegar a árvore de conhecimento entre estas entidades até encontrar um caminho comum que as relacione \cite{Amann2000IntegratingOA}.
+
+A soma das camadas temporal, geoespacial, e semânticas compõem um modelo completo de definição de contexto e de busca de entidades e relacionamentos que compete com ferramentas de busca textual unidimensional do estado da arte como Lucene \cite{Li2014TowardsGS}.
+
+Estudos sobre motores de busca e técnicas de \textit{search engine optimization} (SEO) indicam que a aplicação de técnicas como \textit{latent semantic analysis} (LSA) de extração de conhecimento já não é suficiente para a obtenção de resultados escaláveis e eficientes de indexação e busca de entidades e relacionamentos\footnote{\url{https://www.searchenginejournal.com/latent-semantic-indexing-wont-help-seo/240705/}}. Uma abordagem que pode levar sistemas de indexação e extração de conhecimento como o banco de dados Elasticsearch a um patamar de excelência\footnote{\url{https://www.elastic.co/blog/search-for-things-not-strings-with-the-annotated-text-plugin}} é a de geração de texto anotado, ou \textit{tagged text}, conceito este que surgiu com a evolução de dicionários e bases de conhecimento clássicos da literatura do século XX \cite{Tompa1989WhatI}. A aplicação de \textit{tagged text} em sistemas de extração de conhecimento nada mais é do que um processo de incorporação de metadados direto na fonte de dados, e isso facilita e melhora bastante as etapas de processamento de dados e de enriquecimento de contexto.
+
+A importância de texto anotado e de inclusão de metadados em corpos de texto de páginas da web tem sindo bem documentada nos últimos 20 anos, começando por planos e projetos do criador da web, Tim Berners-Lee, em 1998\footnote{\url{https://www.w3.org/DesignIssues/Semantic.html}}. Vários projetos demonstraram, desde a concepção inicial do planejamento da web semântica, que o processo de anotação de texto e inclusão de metadados é a forma mais eficiente de alcançar o patamar de Web 3.0 através da facilitação dos processos de extração de conhecimento \cite{Handschuh2005CreatingOM,Slimani2013SemanticAT}.
+
+A relevância de relações semânticas para processos cognitivos e de construção de memória também é bem documentada em estudos linguísticos, sendo especialmente interessante em culturas onde o alfabeto é morfologicamente rico \cite{Bentin1990TheCO}.
+
+A relação entre as entidades de múltiplos pontos de dados pode ser caracterizada em duas direções: por relação direta exata ou por proximidade.
+
+\subsection{Exatidão}
+
+Quando dois corpos de texto mencionam a mesma entidade ou sinônimos diretos, o relacionamento semântico entre eles é por exatidão, ou horizontal. Isso significa que os dois eventos ou pontos de dados estão basicamente ou parcialmente \textbf{falando da mesma coisa}. Sistemas de recomendação de consumo de conteúdo como Google News fazem uso intenso de relação semântica exata para definir o conceito de \textit{coverage}, que agrega várias fontes que juntas fornecem uma riqueza de pontos de vista ao leitor sobre um mesmo assunto. Esta abordagem é especialmente interessante na sugestão e consumo de conteúdo controverso, como ciências políticas ou sociais.
+
+\subsection{Proximidade}
+
+Mesmo que dois corpos de texto não estejam \textbf{falando da mesma coisa}, existe uma chance - que é enorme se não estabelecido um limite de distância mínima percorrida para definição de um relacionamento válido - de que estes corpos possuam entidades nomeadas que se relacionam indiretamente, ou verticalmente.
+
+Um exemplo seria dois artigos que falam de bandas musicais diferentes, mas que possuíram um membro em comum em momentos diferentes. As duas bandas podem inclusive ser de estilos musicais significativamente diferentes (como metal e jazz), o que não descaracteriza a relação entre elas (apenas a enfraquece).

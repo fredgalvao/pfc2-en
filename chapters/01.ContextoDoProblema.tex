@@ -1,0 +1,72 @@
+\chapter{Introdução ao problema} \label{c:introducao_ao_problema}
+
+Nesta introdução serão apresentados os objetivos do trabalho, a definição de alguns conceitos que se fazem necessários para que este se situe e para que a motivação e desafios do mesmo sejam esclarecidos, e por fim a estrutura da monografia.
+
+\section{Objetivos} \label{s:objetivos}
+
+Os objetivos principais deste trabalho são:
+
+\begin{itemize}
+    \item expor os conceitos relacionados à web semântica, processamento natural de linguagens e cidades inteligentes
+    \item expor o estado da arte de etapas de coleta, processamento e aplicação de dados semânticos em assistentes virtuais pessoais
+    \item propor estruturas de captura e processamento de dados que possibilitem o enriquecimento de contexto através de mapeamento de entidades e análise semântica multidimensional
+    \item prototipar as estruturas de dados necessárias durante o enriquecimento de contexto para a implementação de um assistente virtual pessoal que seja capaz de obter resultados melhores que os sem abordagem multidimensional
+\end{itemize}
+
+Grande parte da motivação deste trabalho teve origem no tema de \textbf{Projeto de Final de Curso 1} de um dos autores do mesmo, descrito e disponível no apêndice \ref{a:PFC1}, onde o conceito de \textbf{infobesidade} é descrito como \say{a sobrecarga de informação, caracterizada por um desbalanço tanto no volume quanto na qualidade desta}.
+
+\section{Conceitos} \label{s:conceitos}
+
+A seguir, serão abordados alguns dos conceitos de alto nível utilizados ao longo do trabalho.
+
+\subsection{Processamento natural de linguagens} \label{ss:processamento_natural_de_linguagens}
+
+O Processamento de Linguagem Natural (PLN) consiste no desenvolvimento de modelos matemáticos e computacionais para processar, extrair e estruturar informações expressas em alguma língua natural. A pesquisa em PLN está voltada, essencialmente, a três aspectos da comunicação \cite{doprocessamento}:
+\begin{itemize}
+\item  Som: fonologia
+\item  Estrutura: morfologia e sintaxe
+\item  Significado: semântica e pragmática
+\end{itemize}
+
+\citeonline{doprocessamento} define as partes internas do estudo de PLN como sendo:
+
+\begin{quote}
+    \say{A \textbf{fonologia} está relacionada ao reconhecimento dos sons que compõem as palavras de uma língua. A \textbf{morfologia} reconhece as palavras em termos das unidades primitivas que a compõem. A \textbf{sintaxe} define a estrutura de uma frase, com base na forma como as palavras se relacionam nessa frase.  A \textbf{semântica} associa significado a uma estrutura sintática, em termos dos significados das palavras que a compõem. A \textbf{pragmática} verifica se o significado associado à uma estrutura sintática é realmente o significado mais apropriado no contexto considerado.}
+\end{quote}
+
+Uma enorme quantidade de páginas na web, em sua maioria de conteúdo redigido por seres humanos, faz necessário que sistemas de extração e aquisição de conhecimento possuam conhecimento de linguagens humanas \cite{inteligencia-artificial}.
+
+A subárea de pesquisa de PLN denominada como Interpretação de Conteúdo (\textit{Information Retrieval}) é especialmente importante para este trabalho, considerando que a interpretação e extração de conhecimento de conteúdo bruto é parte fundamental da etapa de processamento de dados descrita na seção \ref{c:processamento_de_dados}. Um seminário para a disciplina de Processamento de Linguagem Natural no tópico de Interpretação de Conteúdo, descrito no apêndice \ref{a:InformationRetrievalPLN}, detalha melhor algumas das abordagens principais desta área, como por exemplo \textbf{Extração de entidade nomeada} e \textbf{Desambiguação}, que são também de suma importância para a etapa de processamento de dados do sistema descrito por este trabalho.
+
+\subsection{Cidades inteligentes} \label{ss:cidades_inteligentes}
+
+O conceito de cidades inteligentes não é novo, nem exclusivo do século XX e XXI:
+
+\begin{itemize}
+    \item Na Roma Antiga, já por volta dos anos 800 a 735 BC, existiam sistemas de escoamento de esgoto e coleta sanitária complexos e extremamente eficientes, que influenciam projetos de arquitetura e infraestrutura até hoje\footnote{\url{https://en.wikipedia.org/wiki/Sanitation_in_ancient_Rome}}.
+    
+    \item Londres possuía, já em 1829, sistemas de transporte público que séculos depois serviriam como modelo de eficiência urbana para diversos outros centros europeus\footnote{\url{https://en.wikipedia.org/wiki/Transport_in_London}}.
+    
+    \item As ruínas de Uruk, na Mesopotâmia, possuíam sistemas matemáticos ricos de contabilidade e controle de equivalência de finanças que dominavam a vida urbana\footnote{\url{https://www.bbc.com/news/business-39870485}}.
+\end{itemize}
+
+A tentativa de classificar as iniciativas atuais como \textbf{cidades inteligentes} é unanimemente vaga\footnote{\url{https://www.citymetric.com/fabric/many-ways-smart-cities-are-really-very-dumb-4384}}, e é mais produtivo dizer que ao invés de produzir \textbf{cidades inteligentes} absolutas, o objetivo dos projetos modernos é de pensar e implementar atividades e fatores que possam tornar uma cidade \textbf{mais inteligente}, fazendo uso de tecnologia e de processamento de dados.
+
+\subsection{Assistentes virtuais pessoais} \label{ss:assistentes_virtuais_pessoais}
+
+Podemos chamar de Assistente Virtual os agentes de interface que são geralmente representados através de personagens que têm como foco melhorar a interação entre humanos e computadores, ou entre humanos e outros humanos através de uma interface assistida por máquina. Estes assistentes, na forma de personagens, são associados com frequência a processos e mecanismos de inteligência artificial movidos em grande parte pelo processamento natural de linguagens, orientados por estímulos externos a fim de responder a uma interação ou exercer uma tarefa \cite{reategui2006agentes}.
+
+\subsection{Privacidade} \label{ss:privacidade_na_internet_das_coisas}
+
+O portal IoTAgenda define como área de estudo a \textbf{privacidade na internet das coisas}, tal como sendo \say{as considerações especiais necessárias para proteger a informação do usuário de exposição num ambiente de IoT, no qual a quase toda entidade ou objeto físico ou lógico pode ser atribuído um identificador único e a habilidade de comunicação autônoma através da internet ou redes similares} \footnote{\url{https://internetofthingsagenda.techtarget.com/definition/Internet-of-Things-privacy-IoT-privacy}}.
+
+\section{Estrutura do trabalho} \label{s:estrutura_do_trabalho}
+
+Tendo como objetivo a solidificação dos conceitos e etapas envolvidos em uma cidade inteligente e no processamento de dados necessários para a implementação de um assistente virtual pessoal, este trabalho faz uma exploração superficial destes, presente no capítulo \ref{c:introducao_a_solucao_proposta}.
+
+Logo após, um aprofundamento em cada uma das etapas, assim como a contextualização das mesmas nos desafios e objetivos deste trabalho, é feito nos capítulos \ref{c:coleta_de_dados}, \ref{c:processamento_de_dados}, \ref{c:enriquecimento_de_contexto} e \ref{c:aplicacao_dos_dados}.
+
+Tendo a base conceitual das etapas, técnicas e problemas bem definida e contextualizada, uma estrutura próxima a um protótipo é exposta no capítulo \ref{c:enriquecimento_proposto}, junto com a comparação do modelo proposto com uma abordagem clássica, a fim de demonstrar os benefícios da solução aqui sugerida.
+
+Por fim, os desafios encontrados e confirmados ao longo do projeto são dispostos no capítulo \ref{c:desafios}, as conclusões deste apresentadas no capítulo \ref{c:conclusao} e uma análise das possibilidades e trabalhos futuros na área no capítulo \ref{c:possibilidades_trabalhos_futuros}.
+

@@ -1,0 +1,69 @@
+\chapter{Processamento de dados} \label{c:processamento_de_dados}
+
+Esta etapa tem como responsabilidade consumir a interface exposta pela coleta de dados brutos e expôr à camada seguinte, de enriquecimento de contexto, uma interface de consumo de dados úteis e bem formatados.
+
+Diferentes tipos de dados demandam diferentes abordagens e técnicas de processamento textual ou de extração de metadados. Também por isso, a etapa de processamento de dados será responsável por uma das camadas de armazenamento de dados mais importante, e a multidisciplinaridade das tecnologias utilizadas é fundamental para atingir eficiência e escalabilidade em todas as áreas de atuação.
+
+\section{Dado útil \textit{versus} dado bruto} \label{s:dado_util_vs_dado_bruto}
+
+Alguns dos canais de coleta de dados extraem informação bruta de um contexto às vezes muito mais rico e diversificado do que o necessário. Uma pré-seleção e normalização de dados, a fim de transformar dado bruto em dado útil, é necessária então para atingir níveis de eficiência computacional nas camadas posteriores.
+
+Como exemplo tem-se a extração de texto de páginas da web na forma de código fonte HTML puro, sendo que apenas a parte textual principal da página em questão é realmente útil para a extração de metadados que segue.
+
+Algumas das ferramentas disponíveis que comporiam um subsistema completo de tratamento e processamento de dados são \cite{ital:jung-andrew}: Apache Tika\footnote{\url{https://tika.apache.org/}} para extração de texto e metadados de inúmeros formatos brutos como HTML e PDF, Apache Stanbol\footnote{\url{https://stanbol.apache.org/}} para gerenciamento de conteúdo semântico dessas extrações, e Apache OpenNLP\footnote{\url{https://opennlp.apache.org/}} para identificação de entidades nomeadas e processamento textual utilizando aprendizado de máquina.
+
+Já os canais de coleta de dados, compostos por sensores em automação residencial ou cidades inteligentes - como os de temperatura, geolocalização, umidade relativa do ar, pressão atmosférica, nível de água - ou caracterizados por eventos bem definidos - como evento de consumo de conteúdo (desconsiderando o conteúdo em si), visita a páginas e recursos online, interações com \textit{timestamp} ou coordenadas bem definidas seja no mundo digital ou no mundo real - raramente apresentam conteúdo bruto que necessite de normalização ou tratamento prévio, pois espera-se que a formalização do modelo de dado já caracteriza o dado útil desde o começo.
+
+\section{Interpretação e extração de informação} \label{s:interpretacao_e_extracao_de_informacao}
+
+Uma vez que os canais de coleta de dados passaram, quando necessário, por normalização e tratamento a fim de garantir a taxa máxima de utilidade por volume destes dados, ferramentas de extração de informação, entidades, metadados e relacionamentos localizados são então aplicadas sobre cada canal de dado, tendo por objetivo criar uma camada final de dados oferecidos desta etapa do sistema para a próxima em formatos já preparados para processamento computacional de larga escala e alta aplicabilidade.
+
+ O modelo final da solução de sistema proposto prevê que uma eficaz camada de enriquecimento de contexto é capaz de suprir as fragilidades de um modelo precário de coleta e processamento de dados.
+ 
+ Isso se deve ao fato de que algumas das dimensões aqui descritas - como o \textit{timestamp} e a coordenada - podem ser inferidos através da identificação de relacionamentos entre diferentes canais de dados, e modelos intermediários ou em implantação de cidades inteligentes têm muito a se beneficiar de abordagens deste tipo, já que um modelo onde todas as fontes de dados contemplam todas as suas dimensões desejadas pode estar muito distante por motivos de custo de migração ou inviabilidade.
+
+\subsection{Extração de \textit{timestamp}} \label{ss:extracao_de_timestamp}
+
+A informação mais relevante e, felizmente, a mais fácil de ser obtida é \textbf{o momento em que cada evento ou coleta de dado ocorreu}. 
+
+Essa informação é chamada de \textit{timestamp}, e precisa estar presente em todo e qualquer canal de dados de uma cidade inteligente ou sistema de assistência virtual pessoal de memória. 
+
+Considerando que todo sistema computacional de baixo nível oferece algum método de obtenção de informação do relógio da máquina ou da rede com alta precisão - a definição de \textit{Unix Time} considera a precisão de \textbf{segundos}, a definição de \textit{System Time} geralmente considera a precisão de \textbf{milissegundos}, e vários sistemas modernos oferecem interface de obtenção de tempo com precisão de \textbf{nanossegundos} - é confiável dizer que a implementação de \textit{timestamp} com precisão satisfatória estará disponível em todo sistema de coleta de dados.
+
+Se o modelo inicial da fonte de dados ou dos coletores envolvidos não contemplar o aspecto temporal diretamente e imediatamente na coleta dos dados, essa informação perde o valor parcial ou totalmente, pois pode ser impossível inferir ou atribuir um \textit{timestamp} arbitrariamente a um evento de \textit{timestamp} original desconhecido.
+
+Nesta dimensão observa-se o uso de bancos de dados focados em resolver problemas no modelo \textbf{série temporal}\footnote{\url{https://www.influxdata.com/time-series-database/}}, e ferramentas como TimescaleDB\footnote{\url{https://www.timescale.com/}} e InfluxDB\footnote{\url{https://www.influxdata.com/}} serão cruciais para resolver de forma escalável o problema de armazenamento e processamento de dados em séries temporais de imensa escala.
+
+Unindo a importância à tendência, observa-se que bancos de dados de séries temporais foram os que mais cresceram nos últimos 2 anos, de todas as categorias classificadas pelo portal DB-Engines\footnote{\url{https://db-engines.com/en/ranking_categories}}.
+
+\subsection{Extração de coordenadas} \label{ss:extracao_de_coordenadas}
+
+Em sistemas de gerenciamento de cidades inteligentes, ignorando o aspecto de assistente virtual pessoal, o segundo aspecto mais importante de uma informação de valor é o de georreferenciamento.
+
+Tanto sensores estacionários como de controle pluvial e de iluminação urbana quanto dispositivos móveis como \textit{smartphones} e sistemas de bordo de automóveis podem ser acoplados com sistemas GPS pra atribuição constante de localização geográfica.
+
+O bom planejamento de cidades inteligentes, em especial nos projetos de mobilidade urbana conectada, de resposta a ocorrências e de controle de infraestrutura, é grandemente beneficiado pela inclusão de coordenadas geográficas.
+
+Assim como na extração de \textit{timestamp}, não existe extração de coordenadas de fontes de dados que não as contemplem desde o começo da pilha, pois essa não é uma informação que pode ser inferida ou atribuída após a sua concepção. 
+
+Portanto, os modelos de fontes de dados e dispositivos envolvidos devem incluir essa informação na primeira etapa da definição das fontes de dados e dos coletores.
+
+\subsection{Extração de entidades} \label{ss:extracao_de_entidades}
+
+Toda fonte de dados que coleta conteúdo textual puro pode passar por técnicas de processamento de linguagens naturais a fim de extrair entidades nomeadas, classificá-las e então armazená-las de maneira relacional ao texto puro, montando um modelo onde o corpo original de texto é um ponto de dado por si só, além de levar consigo à frente outras fontes de dados derivadas. 
+
+O processamento de imagens e outros tipos de sinais também podem ter um papel importante nessa frente de processamento \cite{cornel:ner}, até mesmo os de baixa variação em domínios específicos \cite{aalto:ner}, já que dispositivos de coleta audiovisual são parte fundamental em projetos de automação residencial e de cidades inteligentes.
+
+\subsection{Extração de metadados} \label{ss:extracao_de_metadados}
+
+O conceito de metadado é subjetivo o suficiente, no contexto de um sistema de larga escala de processamento de dados, para fazer com que algumas fontes de dados possam ser consideradas provedoras dos dois níveis simultaneamente: dado e metadado.
+
+Por outro lado, os metadados de um canal de dados várias vezes é definido pelo modelo e ontologia do coletor ou modelo de dado. 
+
+Projetos de formalização e concretização de modelos de extração e gerência de metadados pela W3C \cite{w3c:ssn}, assim como trabalhos de coleta de dados contextuais \cite{contextualdata:smartcities}, indicam que a modelagem de metadados ainda é um desafio para projetos de cidades inteligentes e projetos de IoT.
+
+\subsection{Extração de conhecimento} \label{ss:extracao_de_conhecimento}
+
+A interpretação, extração e formalização de conteúdo a partir de um corpo de texto é apenas uma das várias aplicações do fluxo completo de processamento de linguagens naturais.
+
+Seu objetivo é, a partir de um texto, identificar entidades e ontologias concretas deste, os relacionamentos descritos entre elas, e expôr o conhecimento extraído do texto de forma com que possa ser reinterpretado por máquinas.

@@ -1,0 +1,59 @@
+\chapter{Aplicação dos dados} \label{c:aplicacao_dos_dados}
+
+A criação de uma interface de exposição de dados explorada pelo capítulo anterior \ref{c:enriquecimento_de_contexto} servirá de combustível para inúmeras e inimagináveis aplicações no contexto final de um assistente virtual pessoal de memória e sugestão de consumo de conteúdo, e no contexto de cidades inteligentes. Neste capítulo serão exploradas as grandes áreas de aplicação desse banco de dados de conhecimento e relações, vislumbrando o que pode ser implementado e os benefícios oferecidos por estes sistemas ao usuário final ou a uma sociedade.
+
+\section{Recomendação de conteúdo}
+
+Talvez a primeira categoria de aplicação a ter chegado no mercado geral fazendo uso de um sistema similar ao descrito neste trabalho - de coleta, processamento, enriquecimento e aplicação de dados - foi o de recomendação de conteúdo.
+
+A definição de \textit{recommender systems}, ou sistemas de recomendação, foi mencionada pela primeira vez em um relatório técnico em 1990, aplicado a um sistema de recomendação e clusterização de leitura de livros e documentos \cite{Karlgren931533}. Sistemas de recomendação aplicados ao varejo estão em constante evolução desde a década de 1990 \cite{twodecades:amazon}, e seu futuro depende muito da evolução da representação digital de \textit{contexto} do usuário online\footnote{\url{https://medium.com/@blueshiftlabs/evolution-of-recommender-systems-a5cb1b0612fd}}.
+
+Sistemas de recomendação são utilizados em vários setores: filmes (Netflix), músicas (Spotify), notícias (Google News), livros (Amazon), artigos de pesquisa (Semantic Scholar, Research Gate), histórico de busca online (Google), tópicos de relevância social (Twitter), \textit{experts} de um assunto \cite{expertseer}, colaboradores para pesquisas \cite{collabseer}, piadas (Jester\footnote{\url{http://eigentaste.berkeley.edu/about.html}}), e tantos outros.
+
+O modelo de enriquecimento de contexto descrito por este projeto tem o potencial de elevar ainda mais a eficiência de sistemas de recomendação de conteúdo ao atrelar as dimensões de tempo, geolocalização e metadados a eventos de consumo de conteúdo, criando uma representação digital do perfil de um usuário muito mais rica do que é possível atualmente.
+
+\section{Assistente de memória}
+
+Assistentes virtuais pessoais\footnote{\url{https://en.wikipedia.org/wiki/Personal_digital_assistant}} estiveram presentes no mundo corporativo com intensidade entre o final da década de 1980 e o começo dos anos 2010. PDAs, ou \textit{personal digital assistants}, foram um utensílio digital de forte influência nas duas primeiras décadas do mundo digital acessível ao usuário final. Os assistentes da Palm de 1996 estenderam um legado de assistentes virtuais corporativos - que incluíam aplicativos de gerência de memória e agenda - até 2011\footnote{\url{https://www.silicon.co.uk/mobility/mobile-os/tales-tech-history-palm-199778}}, quando a HP anunciou que descontinuaria os sistemas operacionais remanescentes da época: WebOS e PalmOS.
+
+O uso de técnicas semânticas de extração, indexação, retenção e busca de conhecimento com armazenamento de duração indefinida tem se tornado uma área de pesquisa e aplicação atraente, especialmente para a área de saúde \cite{Costa2010MultiagentPM, Huang2012TowardAM}. Ferramentas de auxílio a doenças como Alzheimer e degeneração de memória e de processos cognitivos estão sendo desenvolvidas\footnote{\href{https://www.theatlantic.com/technology/archive/2016/01/sorry-dave-afraid-i-cant-do-that/431559/}{The Atlantic: A search engine for your memories}} e algumas já estão em estágio comercial\footnote{\url{http://memricaprompt.com/}}.
+
+A influência de um modelo contextual de domínio generalista na eficiência e precisão de ativação de memórias e obtenção de informação retida também é bem documentada \cite{Agarwal2017RememberingWY,Liu2017AnET,Ma2015KnowledgeGI,HakkaniTr2014ProbabilisticEO}.
+
+\section{Assistente contextual}
+
+Em paralelo à assistência de memória, um sistema como o proposto por este trabalho pode fornecer uma interface de assistência contextual fazendo uso de todas as outras categorias de assistência ao mesmo tempo. A interface de um sistema operacional e de vários aplicativos, softwares e sites podem ser reimaginados considerando uma nova camada de enriquecimento de contexto em tempo real para o usuário, de forma com que toda ação pode conter informação e metadados associados suficiente para disparar a inferência, obtenção e apresentação de elementos de contexto que o usuário não teria normalmente. Um exemplo seria um assistente para o mensageiro Whatsapp que fosse capaz de inferir do contexto de mensagens de um usuário quais as entidades nomeadas e metadados referenciados em uma conversa, e sugerir \textbf{eventos armazenados na memória ou relacionamentos implícitos} em tempo real ao usuário.
+
+Alguns exemplos de aplicação de assistência contextual são a funcionalidade \textit{Smart Compose} do Gmail\footnote{\url{https://www.blog.google/products/gmail/subject-write-emails-faster-smart-compose-gmail/}} e o aplicativo EasyMail\footnote{\href{https://www.forbes.com/sites/frederickdaso/2018/02/28/this-mit-and-harvard-startup-is-making-writing-e-mails-easier-and-effortless}{Forbes: Making Writing Emails Easier And Effortless}}, que tentam resolver o mesmo problema: diminuir o tempo gasto na composição de emails utilizando inteligência semântica para auxiliar na redação rápida de respostas, fazendo uso de consumo e processamento de dados históricos do usuário na plataforma Gmail.
+
+O projeto WeaveOS é um exemplo de aplicação generalizada do conceito de assistente contextual com uso intenso de abordagens e técnicas de análise semântica e inteligência artificial para reimaginar um sistema operacional moderno e as interações do usuário com este \cite{bura2016ai}.
+
+\section{Assistência médica}
+
+Análises semânticas multidimensionais têm se mostrado extremamente eficientes na área da saúde, por exemplo. Vários estudos demonstram que a construção de um modelo multivariado de inferência e predição de correlações estatísticas atinge resultados excelentes, tanto em modelos parcialmente \cite{ziemann2015syndromic} quanto completamente digitais \cite{mann2011alert}.
+
+Iniciativas como a da DengAI\footnote{\url{https://www.drivendata.org/competitions/44/dengai-predicting-disease-spread/page/80/}}, de predição de casos de dengue considerando metadados climáticos, além das dimensões temporal e espacial, são excelentes para disseminação de conhecimento aplicado a otimização de modelos multivariados de análise de dados.
+
+Modelos como este têm sido colocados à prova especialmente em escolas \cite{buehler2008syndromic} e em hospitais \cite{aghaizueurope}.
+
+Alguns \textit{frameworks}, como SaTScan\footnote{\url{https://www.satscan.org/}}, foram desenvolvidos especialmente para análise de dados nas dimensões tempo-espaço a fim de implementar modelos de predição e controle de surtos, epidemias ou pandemias de doenças.
+
+O \textit{Handbook of Biosurveillance}, corpo de pesquisa que influenciou grande parte dos estudos da última década na área de vigilância sanitária para prevenção e predição de disseminação de doenças, é fortemente baseado na análise multidimensional de várias fontes de dados. De acordo com o \textit{Handbook} \cite{wagner2011handbook}, a importância de representações multidimensionais é descrita nos seguintes termos, em tradução livre, em dois pontos principais:
+
+\begin{quote}
+    We have also extended these techniques to rotated rectangular regions and multidimensional data sets (Neill et al., 2005). These methods are able to search hundreds or thousands of times faster than an exhaustive search, without any loss of accuracy (i.e., the fast spatial scan finds exactly the same region and p-value as exhaustive search).
+    
+    Nós também estendemos estas técnicas para regiões retangulares rotacionadas e conjuntos de dados multidimensionais (Neill et al., 2005). Estes métodos são capazes de buscar centenas ou milhares de vezes mais rápido que uma busca exaustiva, sem perda alguma de acurácia (como por exemplo, a varredura geoespacial rápida encontra exatamente a mesma região e \textit{p-value} que a busca exaustiva).
+\end{quote}
+
+\begin{quote}
+    What is novel here is taking that idea to its logical conclusion, which entails systematically examining all threats (biological agents and their various presentations as outbreaks) to identify a set of patterns (more multidimensional than spatial patterns) that most or ideally represent all of the patterns that a biosurveillance system must be capable of recognizing.
+    
+    O que é novo aqui é levar esta ideia até sua conclusão lógica, o que implica em examinar sistematicamente todas as ameaças (agentes biológicos e suas várias apresentações como surtos) para identificar um conjunto de padrões (mais multidimensionais que os padrões espaciais) que majoritariamente ou idealmente represente todos os padrões que um sistema de vigilância biológica precisa ser capaz de reconhecer.
+\end{quote}
+
+Em especial, o uso de modelos computacionais multivariáveis para predição, prevenção e controle de surtos ou epidemias em escolas de zonas rurais subdesenvolvidas, como China \cite{pilot2014syndromic}, Camboja \cite{cheng2013potential} e Tailândia \cite{lawpoolsri2014real}, tem se mostrado de extrema importância como exemplo de aplicação de dados de contexto enriquecido.
+
+\section{Otimização de infraestrutura e serviços}
+
+Além do âmbito individual, a definição de contexto multidimensional disponibilizando as camadas de dados descritas por este trabalho a aplicações de infraestrutura tem o poder de levar a eficiência de sistemas e serviços coletivos a patamares nunca antes possíveis. Um exemplo claro e recente é o uso de diversas fontes de dados para a formulação de sistemas de otimização de tráfego e oferta e demanda de táxis em Singapura\footnote{\url{https://www.citylab.com/life/2017/04/singapore-city-of-sensors/523392/}}. O cenário de Singapura é considerado um dos maiores exemplos de aplicação estrutural de IoT, BigData, \textit{open data}, e vários outros conceitos, a fim de criar uma cidade que é inteligente tendo escolhido conscientemente pagar o preço da privacidade para a obtenção de níveis incríveis de qualidade de vida \cite{keon2016international}.

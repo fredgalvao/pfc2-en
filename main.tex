@@ -1,0 +1,551 @@
+%% abtex2-modelo-trabalho-academico.tex, v-1.9.2 laurocesar
+%% Copyright 2012-2014 by abnTeX2 group at http://abntex2.googlecode.com/ 
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the abnTeX2 team, led
+%% by Lauro César Araujo. Further information are available on 
+%% http://abntex2.googlecode.com/
+%%
+%% This work consists of the files abntex2-modelo-trabalho-academico.tex,
+%% abntex2-modelo-include-comandos and abntex2-modelo-references.bib
+%%
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% abnTeX2: Modelo de Trabalho Academico (tese de doutorado, dissertacao de
+% mestrado e trabalhos monograficos em geral) em conformidade com 
+% ABNT NBR 14724:2011: Informacao e documentacao - Trabalhos academicos -
+% Apresentacao
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+\documentclass[
+	% -- opções da classe memoir --
+	12pt,				% tamanho da fonte
+	openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
+	twoside,			% para impressão em verso e anverso. Oposto a oneside
+	a4paper,			% tamanho do papel. 
+	% -- opções da classe abntex2 --
+	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
+	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
+	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
+	% -- opções do pacote babel --
+	english,			% idioma adicional para hifenização
+	french,				% idioma adicional para hifenização
+	spanish,			% idioma adicional para hifenização
+	brazil				% o último idioma é o principal do documento
+	]{abntex2}
+
+% ---
+% Pacotes básicos 
+% ---
+\usepackage{lmodern}			% Usa a fonte Latin Modern			
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{lastpage}			% Usado pela Ficha catalográfica
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{microtype} 			% para melhorias de justificação
+% ---
+		
+%%CUSTOM-FRED
+%Path relative to the main .tex file 
+\graphicspath{ {./images/} }
+%code highlight
+\usepackage{minted}
+\usepackage[final]{pdfpages}
+\usepackage{afterpage}
+\usepackage{hyperref}
+\usepackage{dirtytalk}
+%%CUSTOM-FRED-END
+
+% ---
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
+\usepackage{lipsum}				% para geração de dummy text
+% ---
+
+% ---
+% Pacotes de citações
+% ---
+\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+
+% --- 
+% CONFIGURAÇÕES DE PACOTES
+% --- 
+
+% ---
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1 %
+		Nenhuma citação no texto.%
+	\or
+		Citado na página #2.%
+	\else
+		Citado #1 vezes nas páginas #2.%
+	\fi}%
+% ---
+
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{Enriquecimento de contexto com análise semântica para assistente virtual pessoal num cenário de Cidades Inteligentes}
+\autor{Frederico Costa Galvão \\ Lucas Costa Sousa Milhomem}
+
+\local{Goiânia, Brasil}
+\data{2018}
+\orientador{Marcelo Stehling de Castro}
+\coorientador{Sandrerley Ramos Pires}
+\instituicao{%
+ UNIVERSIDADE FEDERAL DE GOIÁS \par
+ ESCOLA DE ENGENHARIA ELÉTRICA, MECÂNICA E DE COMPUTAÇÃO
+   \par}
+  
+ \tipotrabalho{Monografia de Graduação}
+% O preambulo deve conter o tipo do trabalho, o objetivo, 
+% o nome da instituição e a área de concentração 
+\preambulo{Monografia apresentada como requisito parcial para a obtenção do título de Bacharel em Engenharia no curso de graduação em Engenharia de Computação da Escola de Engenharia Elétrica, Mecânica e de Computação da Universidade Federal de Goiás.}
+% ---
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		pdftitle={\@title}, 
+		pdfauthor={\@author},
+    	pdfsubject={\imprimirpreambulo},
+	    pdfcreator={LaTeX with abnTeX2},
+		pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico}, 
+		colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=blue,          	% color of internal links
+    	citecolor=blue,        		% color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+		urlcolor=blue,
+		bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+% \pretextual
+
+% ---
+% Capa
+% ---
+\imprimircapa
+% ---
+
+% ---
+% Folha de rosto
+% (o * indica que haverá a ficha bibliográfica)
+% ---
+\imprimirfolhaderosto*
+% ---
+
+% ---
+% Inserir a ficha bibliografica
+% ---
+
+% Isto é um exemplo de Ficha Catalográfica, ou ``Dados internacionais de
+% catalogação-na-publicação''. Você pode utilizar este modelo como referência. 
+% Porém, provavelmente a biblioteca da sua universidade lhe fornecerá um PDF
+% com a ficha catalográfica definitiva após a defesa do trabalho. Quando estiver
+% com o documento, salve-o como PDF no diretório do seu projeto e substitua todo
+% o conteúdo de implementação deste arquivo pelo comando abaixo:
+%
+% \begin{fichacatalografica}
+%     \includepdf{fig_ficha_catalografica.pdf}
+% \end{fichacatalografica}
+
+\begin{fichacatalografica}
+	\sffamily
+%	\vspace*{\fill}					% Posição vertical
+	\begin{center}					% Minipage Centralizado
+	\fbox{\begin{minipage}[c][8cm]{13.5cm}		% Largura
+	\small
+	\imprimirautor / \imprimirtitulo \par
+	%Sobrenome, Nome do autor
+	
+	\imprimirtipotrabalho~--~\imprimirinstituicao,\imprimirlocal,\imprimirdata
+	\newline
+	\vspace{0.5cm}
+	\hspace{0.5cm} \thelastpage p. : il. (algumas color.) ; 30 cm.
+	\newline
+    \hspace{0.5cm} \imprimirorientadorRotulo~\imprimirorientador
+	\newline
+		1. Web semântica \par
+		2. Cidades inteligentes \par
+		3. Processamento de linguagens naturais \par
+		I. {\imprimirinstituicao}
+		II. \imprimirtitulo
+	\end{minipage}}
+	\end{center}
+\end{fichacatalografica}
+% ---
+\vspace*{\fill}
+
+\begin{minipage}{.9\textwidth}
+        \textbf{CESSÃO DE DIREITOS}
+	    \vspace{0.5cm}
+	    \\
+        AUTOR: Frederico Costa Galvão; Lucas Costa Sousa Milhomem \\
+        TÍTULO DA MONOGRAFIA: {\imprimirtitulo} \\
+        GRAU / ANO: Bacharel / 2018 \\
+        
+        O autor reserva outros direitos de publicação e nenhuma parte desta monografia pode ser reproduzida sem a autorização por escrito do autor.
+        
+	    \vspace{0.5cm}
+        \begin{center}
+        \begin{tabular}{ c c }
+
+            \begin{minipage}{.45\textwidth}
+            \begin{center}
+                Frederico Costa Galvão
+            \end{center}
+            \footnotesize{Endereço: Rua T-33, Quadra 84, Lote 6-8, Apto 2901, Bloco B-Conquista, Residencial Like Bueno, Setor Bueno, Goiânia - GO.} \\
+            \footnotesize{CEP: 74215-140.} \\
+            \footnotesize{Tel.: +55 62 98131-5720} \\
+            \footnotesize{E-mail: frederico.costa.galvao@gmail.com}
+            \end{minipage}
+
+            &
+
+            \begin{minipage}{.45\textwidth}
+            \begin{center}
+                Lucas Costa Sousa Milhomem
+            \end{center}
+            \footnotesize{Endereço: Rua Dr. João Alves de Castro nº 425, Quadra 20, Lote 06, Setor Criméia Oeste, Goiânia - GO.} \\
+            \footnotesize{CEP: 74563-170.} \\
+            \footnotesize{Tel.: +55 62 98183-2835} \\
+            \footnotesize{E-mail: lucas.script@gmail.com}
+            \end{minipage}
+
+        \end{tabular}
+        \end{center}
+\end{minipage}
+
+
+\newpage
+
+\includepdf{Termo_de_ciencia.pdf}
+\cleardoublepage
+
+% ---
+% Inserir folha de aprovação
+% ---
+
+% Isto é um exemplo de Folha de aprovação, elemento obrigatório da NBR
+% 14724/2011 (seção 4.2.1.3). Você pode utilizar este modelo até a aprovação
+% do trabalho. Após isso, substitua todo o conteúdo deste arquivo por uma
+% imagem da página assinada pela banca com o comando abaixo:
+%
+% \includepdf{folhadeaprovacao_final.pdf}
+%
+%%\begin{folhadeaprovacao}
+%%  \begin{center}
+%%    {\ABNTEXchapterfont\large\imprimirinstituicao}
+%%
+%%    \vspace*{\fill}\vspace*{\fill}
+%%    \begin{center}
+%%    {\par \Large \centering \textbf{FOLHA DE APROVAÇÃO}}
+%%      \newline
+%%     \\ \ABNTEXchapterfont\bfseries\Large\imprimirtitulo
+%%    \end{center}
+%%    \vspace*{\fill}
+%%    
+%%    \imprimirautor
+%%    \vspace*{\fill}\vspace*{\fill}
+%%    
+%%    \hspace{.45\textwidth}
+%%    \begin{minipage}{.5\textwidth}
+%%        \imprimirpreambulo
+%%    \end{minipage}
+%%    \vspace*{\fill}
+%%   \end{center}
+%%        
+%%   Monografia defendida e aprovada em \imprimirlocal,  14 de dezembro de 2018, pela banca examinadora constituída por:
+%%
+%%   \assinatura{\textbf{\imprimirorientador} \\ Orientador} 
+%%   \assinatura{\textbf{Sandrerley Ramos Pires } \\ Coorientador}
+%%   \assinatura{\textbf{Gustavo Dias de Oliveira} \\  Engenheiro convidado}
+%%      
+%%   \begin{center}
+%%    \vspace*{0.5cm}
+%%    {\large\imprimirlocal}
+%%    \par
+%%    {\large\imprimirdata}
+%%    \vspace*{1cm}
+%%  \end{center}
+%%  
+%%\end{folhadeaprovacao}
+
+\includegraphics[width=\textwidth]{Ata_de_aprovacao.png}
+\cleardoublepage
+% ---
+
+% ---
+% Dedicatória
+% ---
+\begin{dedicatoria}
+   \vspace*{\fill}
+   \centering
+   \noindent
+   \textit{ Este trabalho é dedicado aos professores do curso de Engenharia de Computação que souberam manter sempre ativos em nós o interesse e a curiosidade do aprendizado constante, e aos futuros pesquisadores e profissionais que terão o papel crucial de construir e manter uma internet mais inteligente que a atual. } \vspace*{\fill}
+\end{dedicatoria}
+% ---
+
+% ---
+% Epígrafe
+% ---
+\begin{epigrafe}
+    \vspace*{\fill}
+	\begin{flushright}
+		\textit{``A verdade raramente é pura, e nunca é simples.`` \\
+		(Oscar Wilde - The Importance of Being Earnest)}
+	\end{flushright}
+\end{epigrafe}
+% ---
+
+% ---
+% RESUMOS
+% ---
+
+% resumo em português
+\setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo
+\begin{resumo}
+ Nos últimos anos o consumo de conteúdo virtual aumentou significativamente, entretanto este ainda não está estruturado de maneira preparada para a dimensão prevista pelos projetos de cidades inteligentes em planejamento. A reorganização da internet pelos conceitos da semântica que levará a web ao patamar de Web 3.0 (Web Semântica) está sendo colocada em prática pela Internet das Coisas e por abordagens modernas de processamento de dados, porém a tecnologia necessária para atender as demandas estipuladas ainda se encontra desafiada. Propõe-se, portanto, pesquisa e desenvolvimento de um sistema de mapeamento e gerência de informações pessoais baseado em análise semântica de conteúdo já consumido via extensões de browsers e aplicativos móveis com o objetivo de desenvolver um assistente virtual pessoal de memória e de consumo de conteúdo.
+
+ \textbf{Palavras-chaves}: enriquecimento de contexto. web 3. web semântica. cidades inteligentes. internet das coisas. gerência de informação pessoal. processamento de linguagens naturais.
+\end{resumo}
+
+% resumo em inglês
+\begin{resumo}[Abstract]
+ \begin{otherlanguage*}{english}
+   In the latest years, virtual content consumption increased significantly, but that content still isn't well structured enough to handle the order of magnitude predicted by the ongoing smart city projects. The reorganization of the internet through semantic means that will take it to the level of Web 3.0 (Semantic Web) is being put into practice by the Internet of Things and by modern data processing approaches. Nevertheless, the technology needed to satisfy the demands stipulated is still being challenged. We propose, then, research and development of a system to map and manage personal information based on semantic analysis of consumed content through browser extensions and mobile applications with the intent to develop a virtual personal assistant on memory and content consumption.
+
+   \vspace{\onelineskip}
+ 
+   \noindent 
+   \textbf{Key-words}: context enrichment. web 3. semantic web. smart city. internet of things. personal information management. natural language processing.
+ \end{otherlanguage*}
+\end{resumo}
+% ---
+
+% ---
+% inserir lista de ilustrações
+% ---
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+% ---
+
+% ---
+% inserir lista de abreviaturas e siglas
+% ---
+\begin{siglas}
+    \item[PLN] Processamento de linguagens naturais
+    \item[NLP] Natural language processing
+    \item[IoT] Internet of Things
+    \item[GDPR] General Data Protection Regulation
+    \item[PDA] Personal Digital Assistant
+    \item[JVM] Java Virtual Machine
+    \item[PODs] Personal Online Data store
+    \item[GPS] Global Positioning System
+    \item[HTML] Hypertext Markup Language
+    \item[PDF] Portable Document Format
+    \item[DB] Database
+    \item[W3C] World Wide Web Consortium
+    \item[NFC] Near-field communication
+    \item[NER] Named entity recognition
+    \item[SEO] Search engine optimization
+    \item[LSA] Latent semantic analysis
+    \item[MIT] Massachusetts Institute of Technology
+    \item[CSAIL] Computer Science and Artificial Intelligence Lab
+    \item[SOLID] Social linked data
+    \item[DIG] Decentralized Information Group
+    \item[CERN] Conseil Européen pour la Recherche Nucléaire
+\end{siglas}
+% ---
+
+% ---
+% inserir o sumario
+% ---
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+% ---
+
+
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+% ----------------------------------------------------------
+% PARTE
+% ----------------------------------------------------------
+\part{Introdução}
+% ----------------------------------------------------------
+
+\include{chapters/01.ContextoDoProblema}
+\include{chapters/02.IntroducaoASolucaoProposta}
+
+% ----------------------------------------------------------
+% PARTE
+% ----------------------------------------------------------
+\part{Desenvolvimento}
+% ----------------------------------------------------------
+
+\include{chapters/03.ColetaDeDados}
+\include{chapters/04.ProcessamentoDeDados}
+\include{chapters/05.EnriquecimentoDeContexto}
+\include{chapters/06.AplicacaoDosDados}
+
+% ----------------------------------------------------------
+% PARTE
+% ----------------------------------------------------------
+\part{Resultados}
+% ----------------------------------------------------------
+
+\include{chapters/07.EnriquecimentoDeContextoDeEntidadesNoTempo}
+\include{chapters/08.Desafios}
+\include{chapters/09.Conclusoes}
+\include{chapters/10.Possibilidades}
+
+% ----------------------------------------------------------
+% Finaliza a parte no bookmark do PDF
+% para que se inicie o bookmark na raiz
+% e adiciona espaço de parte no Sumário
+% ----------------------------------------------------------
+%\phantompart
+
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+% ----------------------------------------------------------
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\bibliography{references}
+
+% ----------------------------------------------------------
+% Glossário
+% ----------------------------------------------------------
+%
+% Consulte o manual da classe abntex2 para orientações sobre o glossário.
+%
+%\glossary
+
+% ----------------------------------------------------------
+% Apêndices
+% ----------------------------------------------------------
+
+% ---
+% Inicia os apêndices
+% ---
+\begin{apendicesenv}
+
+% Imprime uma página indicando o início dos apêndices
+\partapendices
+
+
+
+% ----------------------------------------------------------
+\chapter{Gerência de consumo de conteúdo através de análise semântica} \label{a:PFC1}
+% ----------------------------------------------------------
+
+Trabalho apresentado pelo aluno Frederico Costa Galvão na disciplina de PROJETO DE FINAL DE CURSO 1 do Curso de Engenharia de Computação, Goiânia, Julho, 2013.
+
+Link para a apresentação no Slideshare: \url{https://www.slideshare.net/kikoalemao/gdg-goinia-2014-semantic}.
+
+% ----------------------------------------------------------
+% ----------------------------------------------------------
+\chapter{BigData nos planos de Smart Grid e Smart Cities} \label{a:BigDataSmartCity}
+% ----------------------------------------------------------
+
+Trabalho apresentado pelos autores deste trabalho em Seminário da disciplina de Smart Cities e Smart Grids (TÓPICOS EM ENGENHARIA DE SISTEMAS DE INFORMAÇÃO 3) do Curso de Engenharia de Computação, Goiânia, Outubro, 2018.
+
+Link para a apresentação no Google Drive: \url{https://drive.google.com/open?id=1FfkQRLGCkCx5vu-Mox8zSHO-88NolLQQPQBbrR_zscw}.
+Link para o artigo no Gogole Drive: \url{https://drive.google.com/open?id=1nCtG_2KHy87c_sQgfbroYBLShCIq_yJq14HfOl0JE4w}.
+
+% ----------------------------------------------------------
+% ----------------------------------------------------------
+\chapter{Interpretação de conteúdo - Information retrieval system} \label{a:InformationRetrievalPLN}
+% ----------------------------------------------------------
+
+Trabalho apresentado pelos autores deste trabalho em Seminário da disciplina de Processamento de Linguagem Natural (TÓPICOS EM ENGENHARIA DE CONTROLE E AUTOMAÇÃO 4) do Curso de Engenharia de Computação, Goiânia, Outubro, 2018.
+
+Link para a apresentação no Google Drive: \url{https://drive.google.com/open?id=1us4UdMyGai7LahPM9CUsamSim7aTzRfVj5fTolRy798}.
+
+% ----------------------------------------------------------
+
+\end{apendicesenv}
+% ---
+
+
+%---------------------------------------------------------------------
+% INDICE REMISSIVO
+%---------------------------------------------------------------------
+%\phantompart
+\printindex
+%---------------------------------------------------------------------
+
+\end{document}
+
+
+%%TODOs
+% melhorar a descrição da imagem \ref{i:DataChannels} pra ficar claro que são cenários se repetindo
+% revisar o conteúdo (principalmente objetivos e abstract) pra tentar publicar
